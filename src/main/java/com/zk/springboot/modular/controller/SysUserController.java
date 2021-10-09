@@ -2,6 +2,7 @@ package com.zk.springboot.modular.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zk.springboot.common.response.Response;
+import com.zk.springboot.config.aop.LogAnno;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.model.SysUser;
 import com.zk.springboot.modular.service.SysUserService;
@@ -28,38 +29,41 @@ public class SysUserController {
     @Resource
     private SysUserService userService;
 
-    /**
-     * 第二种分页方式，使用mapper文件的select注解，优点是可以方便的建立查询语句，可以联合多表查询。
-     */
+    //第二种分页方式，使用mapper文件的select注解，优点是可以方便的建立查询语句，可以联合多表查询。
     @RequestMapping(value = "/findUserByPage", method = RequestMethod.POST)
     @ApiOperation(value = "分页获取所有用户")
-    public Page<SysUser> findUserByPage(
-            @ApiParam(name = "pageNo", value = "当前页")
-            @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
-            @ApiParam(name = "pageSize", value = "每一页数据个数")
-            @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public Page<SysUser> findUserByPage(@ApiParam(name = "pageNo", value = "当前页")
+                                        @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                        @ApiParam(name = "pageSize", value = "每一页数据个数")
+                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
         return userService.findUserByPage(pageNo, pageSize);
     }
 
     @RequestMapping(value = "/findUserById", method = RequestMethod.POST)
     @ApiOperation(value = "通过userId查找用户")
-    public SysUser findUserById(
-            @ApiParam(name = "userId", value = "用户id")
-            @RequestParam(value = "userId", required = true) Integer userId) {
+    public SysUser findUserById(@ApiParam(name = "userId", value = "用户id")
+                                @RequestParam(value = "userId", required = true) Integer userId) {
         return userService.findUserById(userId);
     }
 
     @RequestMapping(value = "/findUserByName", method = RequestMethod.POST)
     @ApiOperation(value = "通过userName查找用户")
-    public Response findUserByName(
-            @ApiParam(name = "userName", value = "用户名")
-            @RequestParam(value = "userName", required = true) String userName) {
+    public Response findUserByName(@ApiParam(name = "userName", value = "用户名")
+                                   @RequestParam(value = "userName", required = true) String userName) {
         return userService.findUserByName(userName);
     }
 
-    /**
-     * 查询该用户对应的角色 一个用户对应一个角色  多个用户对应一个角色 多对一
-     */
+    @LogAnno(operateType = "新增用户")
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @ApiOperation(value = "新增用户")
+    public void addUser(@ApiParam(name = "userName", value = "用户名")
+                                   @RequestParam(value = "userName", required = true) String userName,
+                                   @ApiParam(name = "nickName", value = "昵称")
+                                   @RequestParam(value = "nickName", required = true) String nickName) {
+         userService.addUser(userName,nickName);
+    }
+
+    // 查询该用户对应的角色 一个用户对应一个角色  多个用户对应一个角色 多对一
     @PostMapping(value = "/findRoleByUserId")
     @ApiIgnore
     public SysRole findRoleByUserId(@Param("userId") Integer userId) {

@@ -23,4 +23,8 @@ public interface SysUserService extends IService<SysUser> {
     Response findUserByName(String userName);
 
     SysRole findRoleByUserId(Integer userId);
+
+    void addUser(String userName,String nickName);
+
+
 }

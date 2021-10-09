@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zk.springboot.common.exception.ExceptionEnum;
 import com.zk.springboot.common.exception.RunException;
 import com.zk.springboot.common.response.Response;
+import com.zk.springboot.common.utils.RedisUtil;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.model.SysUser;
 import com.zk.springboot.modular.mapper.SysUserMapper;
@@ -64,5 +65,30 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysRole findRoleByUserId(Integer userId) {
         return userMapper.findRoleByUserId(userId);
+    }
+
+    @Override
+    public void addUser(String userName, String nickName) {
+        try{
+            SysUser user=new SysUser();
+            user.setUserName(userName);
+            user.setNickName(nickName);
+            int row=userMapper.insert(user);
+            if(row==1){
+                //redis中新增10秒过期的key  用于测试key过期
+                RedisUtil.setTime(userName,userName,10);
+                //jedis基本使用
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("username", userName);
+                map.put("nickname", nickName);
+                RedisUtil.getJedis().hmset("用户"+userName,map);
+            }else{
+                throw  new RunException(ExceptionEnum.USER_ADD_ERROR);
+            }
+        }catch (Exception e){
+            log.info("增加用户失败");
+            e.printStackTrace();
+        }
+
     }
 }

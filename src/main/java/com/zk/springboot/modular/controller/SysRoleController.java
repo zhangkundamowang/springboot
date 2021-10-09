@@ -30,9 +30,9 @@ public class SysRoleController {
     @Resource
     private SysRoleService service;
 
-    /**
-     * 第一种分页方式，mybatis-plus原生QueryWrapper方式分页，这种方式比较简单，可以不用修改Mapper，适合简单的增删改查。
-     */
+
+    //第一种分页方式，mybatis-plus原生QueryWrapper方式分页
+    //这种方式比较简单，可以不用修改Mapper，适合简单的增删改查。
     @RequestMapping(value = "/findRoleByPage", method = RequestMethod.POST)
     @ApiOperation(value = "分页获取所有角色")
     public IPage<SysRole> findRoleByPage(@ApiParam(name = "pageNo", value = "当前页")
@@ -44,9 +44,8 @@ public class SysRoleController {
 
     @RequestMapping(value = "/findRoleById", method = RequestMethod.POST)
     @ApiOperation(value = "通过roleId查询角色")
-    public SysRole findRoleById(
-            @ApiParam(name = "roleId", value = "角色id")
-            @RequestParam(value = "roleId", required = false) int roleId) {
+    public SysRole findRoleById(@ApiParam(name = "roleId", value = "角色id")
+                                @RequestParam(value = "roleId", required = false) int roleId) {
         return service.findRoleById(roleId);
     }
 
