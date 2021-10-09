@@ -4,22 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zk.springboot.modular.model.SysRole">
-        <id column="role_id" property="roleId" />
-        <result column="role_name" property="roleName" />
-        <result column="role_key" property="roleKey" />
-        <result column="role_sort" property="roleSort" />
-        <result column="data_scope" property="dataScope" />
-        <result column="menu_check_strictly" property="menuCheckStrictly" />
-        <result column="dept_check_strictly" property="deptCheckStrictly" />
-        <result column="status" property="status" />
-        <result column="del_flag" property="delFlag" />
-        <result column="create_by" property="createBy" />
-        <result column="create_time" property="createTime" />
-        <result column="update_by" property="updateBy" />
-        <result column="update_time" property="updateTime" />
-        <result column="remark" property="remark" />
-        <!--colunm 可以看作传入findUsersByRoleId方法的参数  也就是role类的id字段 -->
-        <!--查询角色的时候会把查询到的角色的id字段传给findUsersByRoleId方法,然后调用下面的findUsersByRoleId，查出角色下的所有用户-->
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_key" property="roleKey"/>
+        <result column="role_sort" property="roleSort"/>
+        <result column="data_scope" property="dataScope"/>
+        <result column="menu_check_strictly" property="menuCheckStrictly"/>
+        <result column="dept_check_strictly" property="deptCheckStrictly"/>
+        <result column="status" property="status"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="remark" property="remark"/>
+        <!--colunm 可以看作传入findUsersByRoleId方法的参数  也就是role类的role_id字段 -->
+        <!--查询角色的时候会把查询到的role_id字段传给findUsersByRoleId方法,然后调用下面的findUsersByRoleId，查出角色下的所有用户-->
         <collection property="userList" column="role_id" select="findUsersByRoleId"></collection>
     </resultMap>
 
@@ -29,16 +29,16 @@
 
     <select id="findUsersByRoleId" resultType="com.zk.springboot.modular.model.SysUser">
         SELECT
-        t.*
-        FROM sys_user_role t
-        where t.role_id=#{id}
+        u.*
+        FROM sys_user u left join sys_user_role t on u.user_id=t.user_id
+        where t.role_id=#{roleId}
     </select>
 
-    <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="findRoleById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from sys_role
-        where role_id = #{id}
+        where role_id = #{roleId}
     </select>
 
     <!--resultType返回的是集合中的元素类型，而不是集合本身-->
@@ -48,4 +48,5 @@
         <include refid="Base_Column_List"/>
         from sys_role
     </select>
+
 </mapper>

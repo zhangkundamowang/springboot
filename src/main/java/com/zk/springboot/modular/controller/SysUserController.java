@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
 import javax.annotation.Resource;
 
 /**
@@ -28,7 +29,7 @@ public class SysUserController {
     private SysUserService userService;
 
     /**
-     * 第二种方式，使用mapper文件的select注解，优点是可以方便的建立查询语句，可以联合多表查询。
+     * 第二种分页方式，使用mapper文件的select注解，优点是可以方便的建立查询语句，可以联合多表查询。
      */
     @RequestMapping(value = "/findUserByPage", method = RequestMethod.POST)
     @ApiOperation(value = "分页获取所有用户")
@@ -37,24 +38,23 @@ public class SysUserController {
             @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
             @ApiParam(name = "pageSize", value = "每一页数据个数")
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
-
         return userService.findUserByPage(pageNo, pageSize);
     }
 
-    @RequestMapping(value = "/findById", method = RequestMethod.POST)
-    @ApiOperation(value = "通过id查找用户")
+    @RequestMapping(value = "/findUserById", method = RequestMethod.POST)
+    @ApiOperation(value = "通过userId查找用户")
     public SysUser findUserById(
-            @ApiParam(name = "id", value = "用户id")
-            @RequestParam(value = "id", required = true) Integer userId) {
+            @ApiParam(name = "userId", value = "用户id")
+            @RequestParam(value = "userId", required = true) Integer userId) {
         return userService.findUserById(userId);
     }
 
-    @RequestMapping(value = "/findByName", method = RequestMethod.POST)
-    @ApiOperation(value = "通过name查找用户")
+    @RequestMapping(value = "/findUserByName", method = RequestMethod.POST)
+    @ApiOperation(value = "通过userName查找用户")
     public SysUser findUserByName(
-            @ApiParam(name = "name", value = "用户名")
-            @RequestParam(value = "name", required = true) String name) {
-        return userService.findUserByName(name);
+            @ApiParam(name = "userName", value = "用户名")
+            @RequestParam(value = "userName", required = true) String userName) {
+        return userService.findUserByName(userName);
     }
 
     @LogAnno(operateType = "添加用户")

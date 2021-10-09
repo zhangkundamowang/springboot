@@ -19,7 +19,7 @@ public interface SysRoleService extends IService<SysRole> {
 
     IPage<SysRole> findRoleByPage(Integer pageNo, Integer pageSize);
 
-    SysRole findById(Integer id);
+    SysRole findRoleById(Integer roleId);
 
-    List<SysUser> findUsersByRoleId(Integer id);
+    List<SysUser> findUsersByRoleId(Integer roleId);
 }

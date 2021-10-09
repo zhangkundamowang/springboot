@@ -36,18 +36,18 @@ public class SysRoleController {
     @RequestMapping(value = "/findRoleByPage", method = RequestMethod.POST)
     @ApiOperation(value = "分页获取所有角色")
     public IPage<SysRole> findRoleByPage(@ApiParam(name = "pageNo", value = "当前页")
-                                             @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                         @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
                                          @ApiParam(name = "pageSize", value = "每一页数据个数")
-                                             @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
-        return service.findRoleByPage(pageNo,pageSize);
+                                         @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+        return service.findRoleByPage(pageNo, pageSize);
     }
 
-    @RequestMapping(value = "/findById", method = RequestMethod.POST)
-    @ApiOperation(value = "通过id查询角色")
-    public SysRole findById(
-            @ApiParam(name = "id", value = "角色id")
-            @RequestParam(value = "id", required = false) int id) {
-        return service.findById(id);
+    @RequestMapping(value = "/findRoleById", method = RequestMethod.POST)
+    @ApiOperation(value = "通过roleId查询角色")
+    public SysRole findRoleById(
+            @ApiParam(name = "roleId", value = "角色id")
+            @RequestParam(value = "roleId", required = false) int roleId) {
+        return service.findRoleById(roleId);
     }
 
     /**
@@ -55,8 +55,8 @@ public class SysRoleController {
      */
     @RequestMapping(value = "/findUsersByRoleId", method = RequestMethod.POST)
     @ApiIgnore
-    public List<SysUser> findUsersByRoleId(@Param("id") Integer id) {
-        return service.findUsersByRoleId(id);
+    public List<SysUser> findUsersByRoleId(@Param("roleId") Integer roleId) {
+        return service.findUsersByRoleId(roleId);
     }
 
 }

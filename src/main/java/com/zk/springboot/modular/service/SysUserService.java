@@ -19,7 +19,7 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser findUserById(Integer userId);
 
-    SysUser findUserByName(String name);
+    SysUser findUserByName(String userName);
 
     SysRole findRoleByUserId(Integer userId);
 }

@@ -33,20 +33,20 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public IPage<SysRole> findRoleByPage(Integer pageNo,Integer pageSize) {
         LambdaQueryWrapper<SysRole> query = Wrappers.lambdaQuery();
-       // query.eq(SysRole::getRemark, "备注");
+        //if... query.eq(SysRole::getRemark, "备注");
         Page<SysRole> page = PageFactory.page(pageNo,pageSize);
         IPage<SysRole> SysRoleIPage = mapper.selectPage(page, query);
         return SysRoleIPage;
     }
 
     @Override
-    public SysRole findById(Integer id) {
-        return mapper.findById(id);
+    public SysRole findRoleById(Integer roleId) {
+        return mapper.findRoleById(roleId);
     }
 
     @Override
-    public List<SysUser> findUsersByRoleId(Integer id) {
-        return mapper.findUsersByRoleId(id);
+    public List<SysUser> findUsersByRoleId(Integer roleId) {
+        return mapper.findUsersByRoleId(roleId);
     }
 
 
