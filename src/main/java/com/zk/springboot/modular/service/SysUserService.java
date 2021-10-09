@@ -1,6 +1,7 @@
 package com.zk.springboot.modular.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zk.springboot.common.response.Response;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.model.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -19,7 +20,7 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser findUserById(Integer userId);
 
-    SysUser findUserByName(String userName);
+    Response findUserByName(String userName);
 
     SysRole findRoleByUserId(Integer userId);
 }

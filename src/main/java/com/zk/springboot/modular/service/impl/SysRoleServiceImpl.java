@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zk.springboot.common.config.mybatisplus.PageFactory;
+import com.zk.springboot.common.exception.ExceptionEnum;
+import com.zk.springboot.common.exception.RunException;
+import com.zk.springboot.config.mybatisplus.PageFactory;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.mapper.SysRoleMapper;
 import com.zk.springboot.modular.model.SysUser;
 import com.zk.springboot.modular.service.SysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +26,7 @@ import java.util.List;
  * @author zk
  * @since 2021-10-08
  */
+@Slf4j
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
 
@@ -41,7 +45,18 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public SysRole findRoleById(Integer roleId) {
-        return mapper.findRoleById(roleId);
+        try {
+            SysRole role = mapper.findRoleById(roleId);
+            if(null!=role){
+                return  role;
+            }else{
+                throw  new RunException(ExceptionEnum.ROLE_NOT_FOUND);
+            }
+        }catch (Exception e){
+            log.info("角色查询异常");
+            e.printStackTrace();
+        }
+       return null;
     }
 
     @Override

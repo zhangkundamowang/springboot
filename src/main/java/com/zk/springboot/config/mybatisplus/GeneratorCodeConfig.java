@@ -1,4 +1,4 @@
-package com.zk.springboot.common.config.mybatisplus;
+package com.zk.springboot.config.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;

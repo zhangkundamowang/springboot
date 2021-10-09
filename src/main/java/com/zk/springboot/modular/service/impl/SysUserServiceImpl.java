@@ -1,11 +1,15 @@
 package com.zk.springboot.modular.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zk.springboot.common.exception.ExceptionEnum;
+import com.zk.springboot.common.exception.RunException;
+import com.zk.springboot.common.response.Response;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.model.SysUser;
 import com.zk.springboot.modular.mapper.SysUserMapper;
 import com.zk.springboot.modular.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -19,6 +23,7 @@ import java.util.Map;
  * @author zk
  * @since 2021-10-08
  */
+@Slf4j
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
     @Resource
@@ -35,12 +40,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser findUserById(Integer userId) {
-        return userMapper.getUserById(userId);
+        try{
+            SysUser user = userMapper.getUserById(userId);
+            if(null!=user){
+                return user;
+            }else{
+                throw new RunException(ExceptionEnum.USER_NOT_FOUND);
+            }
+        }catch (Exception e){
+            log.info("用户查询异常");
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public SysUser findUserByName(String userName) {
-        return userMapper.getUserByName(userName);
+    public  Response findUserByName(String userName) {
+        Response response=new Response();
+        SysUser user = userMapper.getUserByName(userName);
+        return response.success(user);
     }
 
     @Override

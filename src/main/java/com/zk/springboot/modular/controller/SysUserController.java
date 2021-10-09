@@ -1,7 +1,7 @@
 package com.zk.springboot.modular.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zk.springboot.common.config.aop.LogAnno;
+import com.zk.springboot.common.response.Response;
 import com.zk.springboot.modular.model.SysRole;
 import com.zk.springboot.modular.model.SysUser;
 import com.zk.springboot.modular.service.SysUserService;
@@ -51,19 +51,11 @@ public class SysUserController {
 
     @RequestMapping(value = "/findUserByName", method = RequestMethod.POST)
     @ApiOperation(value = "通过userName查找用户")
-    public SysUser findUserByName(
+    public Response findUserByName(
             @ApiParam(name = "userName", value = "用户名")
             @RequestParam(value = "userName", required = true) String userName) {
         return userService.findUserByName(userName);
     }
-
-    @LogAnno(operateType = "添加用户")
-    @RequestMapping(value = "/aop", method = RequestMethod.POST)
-    @ApiOperation(value = "测试Aop")
-    public void add() {
-        System.out.println("模拟操作---向数据库中添加用户!!");
-    }
-
 
     /**
      * 查询该用户对应的角色 一个用户对应一个角色  多个用户对应一个角色 多对一

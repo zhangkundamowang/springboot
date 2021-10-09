@@ -1,4 +1,4 @@
-package com.zk.springboot.common.config.swagger;
+package com.zk.springboot.config.swagger;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +12,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import javax.annotation.PostConstruct;
 import java.util.regex.Pattern;
 

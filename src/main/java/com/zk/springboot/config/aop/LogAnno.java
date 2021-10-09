@@ -1,4 +1,4 @@
-package com.zk.springboot.common.config.aop;
+package com.zk.springboot.config.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

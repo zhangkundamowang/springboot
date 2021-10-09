@@ -1,4 +1,4 @@
-package com.zk.springboot.common.config.mybatisplus;
+package com.zk.springboot.config.mybatisplus;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
