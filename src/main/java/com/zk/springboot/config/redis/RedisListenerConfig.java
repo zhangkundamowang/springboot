@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 
+/**
+ * 定义配置RedisListenerConfig
+ */
 @Configuration
 public class RedisListenerConfig {
     @Bean
