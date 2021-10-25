@@ -3,7 +3,7 @@ package com.zk.springboot.common.exception;
 import lombok.Data;
 
 /**
- * 处理业务异常类
+ * 自定义处理业务异常类
  */
 @Data
 public class RunException extends  RuntimeException {

@@ -1,7 +1,7 @@
 package com.zk.springboot.common.exception;
 
 /**
- *  异常枚举
+ *  自定义异常枚举
  **/
 public enum ExceptionEnum {
 
